@@ -1,5 +1,3 @@
-package com.fujifilm.libs.spa.utils;
-
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 
@@ -26,13 +24,11 @@ public class FujifilmFileUpload {
     private static final String TWO_HYPHENS = "--";
     private HttpURLConnection mConnection;
     private DataOutputStream mOutputStream;
-    private static String TAG = "FujifilmFileUpload";
-    private String mRequestUrl;
+    private static final String TAG = "fujifilm.spa.sdk";
 
 
     public FujifilmFileUpload(String requestUrl) throws IOException {
-        this.mRequestUrl = requestUrl;
-        URL url = new URL(mRequestUrl);
+        URL url = new URL(requestUrl);
         mConnection = (HttpURLConnection) url.openConnection();
         mConnection.setReadTimeout(15000);
         mConnection.setConnectTimeout(15000);
@@ -92,9 +88,9 @@ public class FujifilmFileUpload {
     }
 
     /**
-     * Completes the request and receives response from the server.
+     * Uploads file data to remote server and notifies handler any state changes (success/error)
      *
-     * @return the response JSON from stage server
+     * @param handler listens and responds to any FujifilmFileUpload state changes
      * @throws IOException
      */
     public void finish(FujifilmFileUploadHandler handler) throws IOException {
